@@ -8,6 +8,8 @@ import { useMemo, useState } from "react";
 import { useGroups } from "./../../hooks/useGroups";
 import { getDefaultGroups } from "./utils";
 
+const defualtGroups = getDefaultGroups();
+
 export function ChatNavigation() {
   const navigate = useNavigate();
   const { data: contacts } = useContacts();
@@ -26,10 +28,10 @@ export function ChatNavigation() {
           .trim()
           .includes(filterKey.toLocaleLowerCase().trim()),
     );
-  }, [contacts]);
+  }, [contacts, filterKey]);
 
   const resultGroups = useMemo(() => {
-    return getDefaultGroups()
+    return defualtGroups
       .concat(groups)
       .filter((c) =>
         c.name
@@ -37,7 +39,8 @@ export function ChatNavigation() {
           .trim()
           .includes(filterKey.toLocaleLowerCase().trim()),
       );
-  }, [groups]);
+  }, [groups, filterKey]);
+  console.log(resultGroups);
 
   return (
     <>
